@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  SberbankSDK
+
+  Created by Roman Kuzin on 06.10.2020.
+  Copyright © 2020 Sberbank. All rights reserved.
+*/
+
+"  Сбер ID"  = "  Sber ID";
+"  Войти как " = "  Login as ";
+"  Войти по Сбер ID"  = "  Login with Sber ID";
+"  Заполнить со Сбер ID"  = "  Fill with Sber ID";
+"  Продолжить со Сбер ID"  = "  Continue with Sber ID";

@@ -1,0 +1,513 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name MPAnalytics
+import AdSupport
+import CoreData
+import CoreLocation
+import CoreTelephony
+import Dispatch
+import Foundation
+import CoreData.NSManagedObjectID
+import Network
+import QuartzCore
+import Swift
+import SystemConfiguration
+import UIKit
+@objc(MPAConfigurable) public protocol ObjcConfigurable {
+  @objc func update(deviceConfiguration: ObjcDeviceConfiguration)
+}
+@_inheritsConvenienceInitializers @objc(EventsMeta) public class EventsMeta : CoreData.NSManagedObject {
+  @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+}
+extension DataManaged {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<DataManaged>
+  @objc @NSManaged dynamic public var batteryLevel: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var cellularProvider: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var connectionType: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var eventAction: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var eventCategory: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var eventType: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var geoLatitude: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var geoLongitude: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var internalIP: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var timeStamp: Foundation.Date? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var value: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var isBeingSent: Swift.Bool {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var meta: EventsMeta? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var profile: EventsProfile? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var properties: Foundation.NSOrderedSet? {
+    @objc get
+    @objc set(value)
+  }
+}
+extension DataManaged {
+  @objc(insertObject:inPropertiesAtIndex:) @NSManaged dynamic public func insertIntoProperties(_ value: EventPropertyManaged, at idx: Swift.Int)
+  @objc(removeObjectFromPropertiesAtIndex:) @NSManaged dynamic public func removeFromProperties(at idx: Swift.Int)
+  @objc(insertProperties:atIndexes:) @NSManaged dynamic public func insertIntoProperties(_ values: [EventPropertyManaged], at indexes: Foundation.NSIndexSet)
+  @objc(removePropertiesAtIndexes:) @NSManaged dynamic public func removeFromProperties(at indexes: Foundation.NSIndexSet)
+  @objc(replaceObjectInPropertiesAtIndex:withObject:) @NSManaged dynamic public func replaceProperties(at idx: Swift.Int, with value: EventPropertyManaged)
+  @objc(replacePropertiesAtIndexes:withProperties:) @NSManaged dynamic public func replaceProperties(at indexes: Foundation.NSIndexSet, with values: [EventPropertyManaged])
+  @objc(addPropertiesObject:) @NSManaged dynamic public func addToProperties(_ value: EventPropertyManaged)
+  @objc(removePropertiesObject:) @NSManaged dynamic public func removeFromProperties(_ value: EventPropertyManaged)
+  @objc(addProperties:) @NSManaged dynamic public func addToProperties(_ values: Foundation.NSOrderedSet)
+  @objc(removeProperties:) @NSManaged dynamic public func removeFromProperties(_ values: Foundation.NSOrderedSet)
+}
+@_hasMissingDesignatedInitializers final public class AppsPerformanceAnalyzer {
+  public convenience init(workingQueue: Dispatch.DispatchQueue)
+  @objc deinit
+}
+extension AppsPerformanceAnalyzer : PerformanceAnalyzer {
+  final public func get(performanceMetrics: @escaping (PerformanceMetrics) -> Swift.Void)
+}
+public struct SystemInfo {
+  public var systemLanguage: Swift.String? {
+    get
+  }
+  public let deviceModel: Swift.String?
+  public var batteryLevel: Swift.Int? {
+    get
+  }
+  public let storageCapacity: Swift.Int64?
+  public let operatingSystem: (name: Swift.String, version: Swift.String)
+  public let identifier: Swift.String?
+  public let deviceVendor: Swift.String
+  public let platform: Swift.String
+  public let screenSize: Swift.String
+  public init()
+}
+public protocol ConnectionInfo {
+  var carrierName: Swift.String? { get }
+  var internalIPv4: Swift.String? { get }
+  var connectionType: Connection { get }
+  var cellularType: Cellular { get }
+}
+final public class NetworkServiceAdapter {
+  public init(objcNetworkService: ObjcNetworkService)
+  @objc deinit
+}
+extension NetworkServiceAdapter : NetworkService {
+  final public var apiKey: Swift.String {
+    get
+  }
+  final public func send(body: Event.Body, completionHandler: @escaping (Swift.Result<Foundation.HTTPURLResponse, Swift.Error>) -> Swift.Void)
+}
+public enum Cellular : Swift.String, Swift.Codable {
+  case none
+  case connect2G
+  case connect3G
+  case connect4G
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol EventTracker : AnyObject {
+  typealias Completion = (AnalyticsError?) -> Swift.Void
+  func sendEvent(eventName: Swift.String, params: [Swift.String : Swift.String]?, properties: Swift.KeyValuePairs<Swift.String, Swift.String>, storable: Swift.Bool, location: CoreLocation.CLLocationCoordinate2D?, completion: Self.Completion?)
+  func sendEvent(eventName: Swift.String, params: [Swift.String : Swift.String]?, properties: [Swift.String : Swift.String]?, storable: Swift.Bool, location: CoreLocation.CLLocationCoordinate2D?, completion: Self.Completion?)
+  func sendEvent(eventName: Swift.String, fullData: [Swift.String : Any]?, storable: Swift.Bool, location: CoreLocation.CLLocationCoordinate2D?, completion: Self.Completion?)
+  func sendEvent(urlSessionTaskResponse: Foundation.URLResponse?, transportError: Swift.Error?, completion: Self.Completion?)
+  func sendEvent(sessionTaskMetrics: Foundation.URLSessionTaskMetrics, completion: Self.Completion?)
+}
+extension Event {
+  public struct Data : Swift.Hashable {
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: Event.Data, b: Event.Data) -> Swift.Bool
+  }
+}
+extension Event.Data : Swift.Encodable {
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public enum Connection : Swift.String {
+  case none
+  case cellular
+  case wifi
+  case ethernet
+  case bluetooth
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc(DataManaged) public class DataManaged : CoreData.NSManagedObject {
+  @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+}
+public protocol Configurable : AnyObject {
+  func update(deviceConfiguration: DeviceConfiguration)
+}
+public protocol MPAnalyticsProtocol : Configurable, EventTracker {
+  var shoulUsePerformanceAnalyzer: Swift.Bool { get set }
+}
+@_inheritsConvenienceInitializers @objc(EventPropertyManaged) public class EventPropertyManaged : CoreData.NSManagedObject {
+  @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+}
+@objc(MPANetworkServiceProtocol) public protocol ObjcNetworkService {
+  @objc var apiKey: Swift.String { get }
+  typealias CompletionHandler = (Foundation.HTTPURLResponse?, Swift.Error?) -> Swift.Void
+  @objc func send(body: ObjcBody, completionHandler: @escaping Self.CompletionHandler)
+}
+public protocol PerformanceAnalyzer : AnyObject {
+  func get(performanceMetrics: @escaping (PerformanceMetrics) -> Swift.Void)
+}
+public struct PerformanceMetrics : Swift.Hashable {
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: PerformanceMetrics, b: PerformanceMetrics) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc(EventsProfile) public class EventsProfile : CoreData.NSManagedObject {
+  @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+}
+final public class ConnectionInfoService {
+  public init(networkInfo: CoreTelephony.CTTelephonyNetworkInfo = CTTelephonyNetworkInfo())
+  @objc deinit
+}
+extension ConnectionInfoService : ConnectionInfo {
+  final public var carrierName: Swift.String? {
+    get
+  }
+  final public var internalIPv4: Swift.String? {
+    get
+  }
+  final public var connectionType: Connection {
+    get
+  }
+  final public var cellularType: Cellular {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc(MPABody) final public class ObjcBody : ObjectiveC.NSObject, Swift.Encodable {
+  @objc deinit
+  @objc override dynamic public init()
+  final public func encode(to encoder: Swift.Encoder) throws
+}
+extension EventsMeta {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<EventsMeta>
+  @objc @NSManaged dynamic public var apiKey: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var deviceMemorySize: Swift.Int64 {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var deviceModel: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var deviceVendor: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var operationSystem: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var operationSystemVersion: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var platform: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var sberId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var screenSize: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var systemLanguage: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var events: Foundation.NSSet? {
+    @objc get
+    @objc set(value)
+  }
+}
+extension EventsMeta {
+  @objc(addEventsObject:) @NSManaged dynamic public func addToEvents(_ value: DataManaged)
+  @objc(removeEventsObject:) @NSManaged dynamic public func removeFromEvents(_ value: DataManaged)
+  @objc(addEvents:) @NSManaged dynamic public func addToEvents(_ values: Foundation.NSSet)
+  @objc(removeEvents:) @NSManaged dynamic public func removeFromEvents(_ values: Foundation.NSSet)
+}
+public enum AnalyticsError : Swift.Error {
+  case invalidEvent
+  public static func == (a: AnalyticsError, b: AnalyticsError) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public protocol DeviceIdProvider {
+  func getDeviceId() -> Swift.String?
+}
+public protocol AnalyticsProtocol : Configurable, EventTracker {
+  var performanceAnalyzer: PerformanceAnalyzer? { get set }
+}
+public struct Meta : Swift.Encodable {
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension Meta : Swift.Equatable {
+  public static func == (lhs: Meta, rhs: Meta) -> Swift.Bool
+}
+extension Meta : Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class DeviceConfiguration {
+  public convenience init(profile: Profile)
+  @objc deinit
+}
+extension DeviceConfiguration : Swift.Equatable {
+  public static func == (lhs: DeviceConfiguration, rhs: DeviceConfiguration) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers final public class MPAnalytics : MPAnalyticsProtocol {
+  final public var shoulUsePerformanceAnalyzer: Swift.Bool {
+    get
+    set(newValue)
+  }
+  public convenience init(queue: Dispatch.DispatchQueue = .init(label: "com.mpanalytics.tracking-queue.serial", qos: .background), networkService: NetworkService, deviceConfiguration: DeviceConfiguration, sberId: Swift.String? = nil, deleteAllEventsOlderThan: Foundation.TimeInterval? = 604800)
+  public convenience init(queue: Dispatch.DispatchQueue = .init(label: "com.mpanalytics.tracking-queue.serial", qos: .background), deviceConfiguration: DeviceConfiguration, apiKey: Swift.String, url: Swift.String, sberId: Swift.String? = nil, deleteAllEventsOlderThan: Foundation.TimeInterval? = 604800)
+  @objc deinit
+}
+extension MPAnalytics : Configurable {
+  final public func update(deviceConfiguration: DeviceConfiguration)
+}
+extension MPAnalytics : EventTracker {
+  final public func sendEvent(eventName: Swift.String, params: [Swift.String : Swift.String]?, properties: Swift.KeyValuePairs<Swift.String, Swift.String>, storable: Swift.Bool = true, location: CoreLocation.CLLocationCoordinate2D?, completion: Completion? = nil)
+  final public func sendEvent(eventName: Swift.String, params: [Swift.String : Swift.String]?, properties: [Swift.String : Swift.String]?, storable: Swift.Bool = true, location: CoreLocation.CLLocationCoordinate2D?, completion: Completion? = nil)
+  final public func sendEvent(eventName: Swift.String, fullData: [Swift.String : Any]?, storable: Swift.Bool = true, location: CoreLocation.CLLocationCoordinate2D?, completion: Completion? = nil)
+  final public func sendEvent(urlSessionTaskResponse: Foundation.URLResponse?, transportError: Swift.Error?, completion: Completion? = nil)
+  final public func sendEvent(sessionTaskMetrics: Foundation.URLSessionTaskMetrics, completion: Completion? = nil)
+}
+@_hasMissingDesignatedInitializers final public class Event {
+  @objc deinit
+}
+extension Event : Swift.Equatable {
+  public static func == (lhs: Event, rhs: Event) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(MPAProfile) final public class ObjcProfile : ObjectiveC.NSObject {
+  @objc final public var appVersion: Foundation.NSString?
+  @objc final public var applicationLanguage: Foundation.NSString?
+  @objc final public var sessionId: Foundation.NSString?
+  @objc final public var clientBlock: Foundation.NSString?
+  @objc final public var hashUserLoginId: Foundation.NSString?
+  @objc final public var deviceId: Foundation.NSString?
+  @objc final public var hashEpkId: Foundation.NSString?
+  @objc final public var hashEfsId: Foundation.NSString?
+  @objc final public var subId: Foundation.NSString?
+  @objc final public var appId: Foundation.NSString?
+  @objc final public var sapId: Foundation.NSString?
+  @objc final public var adId: Foundation.NSString?
+  @objc final public var cookie: Foundation.NSString?
+  @objc final public var utm: Foundation.NSString?
+  @objc override final public var hash: Swift.Int {
+    @objc get
+  }
+  @objc override final public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension ObjcProfile : Foundation.NSCopying {
+  @objc final public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+}
+extension EventsProfile {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<EventsProfile>
+  @objc @NSManaged dynamic public var adId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var appId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var applicationLanguage: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var appVersion: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var clientBlock: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var cookie: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var deviceId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var hashEfsId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var hashEpkId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var hashUserLoginId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var sapId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var sessionId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var subId: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var utm: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var events: Foundation.NSSet? {
+    @objc get
+    @objc set(value)
+  }
+}
+extension EventsProfile {
+  @objc(addEventsObject:) @NSManaged dynamic public func addToEvents(_ value: DataManaged)
+  @objc(removeEventsObject:) @NSManaged dynamic public func removeFromEvents(_ value: DataManaged)
+  @objc(addEvents:) @NSManaged dynamic public func addToEvents(_ values: Foundation.NSSet)
+  @objc(removeEvents:) @NSManaged dynamic public func removeFromEvents(_ values: Foundation.NSSet)
+}
+extension Event {
+  public struct Body : Swift.Hashable, Swift.Encodable {
+    public func encode(to encoder: Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: Event.Body, b: Event.Body) -> Swift.Bool
+  }
+}
+@objc(MPAnalyticsProtocol) public protocol ObjcMPAnalyticsProtocol : ObjcConfigurable, ObjcEventTracker {
+  @objc var shoulUsePerformanceAnalyzer: Swift.Bool { get set }
+}
+public protocol NetworkService {
+  var apiKey: Swift.String { get }
+  func send(body: Event.Body, completionHandler: @escaping (Swift.Result<Foundation.HTTPURLResponse, Swift.Error>) -> Swift.Void)
+}
+@objc(MPAEventTracker) public protocol ObjcEventTracker {
+  @objc func sendEvent(eventName: Foundation.NSString, params: [Foundation.NSString : Foundation.NSString]?, properties: [Foundation.NSString : Foundation.NSString]?, storable: Swift.Bool, location: CoreLocation.CLLocation?, completion: ((Foundation.NSError?) -> Swift.Void)?)
+  @objc func sendEvent(urlSessionTaskResponse: Foundation.URLResponse?, transportError: Foundation.NSError?, completion: ((Foundation.NSError?) -> Swift.Void)?)
+  @objc func sendEvent(sessionTaskMetrics: Foundation.URLSessionTaskMetrics, completion: ((Foundation.NSError?) -> Swift.Void)?)
+}
+@_hasMissingDesignatedInitializers @objc(MPAnalytics) final public class ObjcMPAnalytics : ObjectiveC.NSObject, ObjcMPAnalyticsProtocol {
+  @objc final public var shoulUsePerformanceAnalyzer: Swift.Bool {
+    @objc get
+    @objc set(newValue)
+  }
+  final public let mpAnalytics: MPAnalytics
+  @objc(initWithNetworkService:deviceConfiguration:) public convenience init(networkService: ObjcNetworkService, deviceConfiguration: ObjcDeviceConfiguration)
+  @objc(initWithNetworkService:deviceConfiguration:deleteAllEventsOlderThanTimeInterval:) public convenience init(networkService: ObjcNetworkService, deviceConfiguration: ObjcDeviceConfiguration, deleteAllEventsOlderThanTimeInterval: Foundation.TimeInterval)
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension ObjcMPAnalytics : ObjcConfigurable {
+  @objc final public func update(deviceConfiguration: ObjcDeviceConfiguration)
+}
+extension ObjcMPAnalytics : ObjcEventTracker {
+  @objc final public func sendEvent(eventName: Foundation.NSString, params: [Foundation.NSString : Foundation.NSString]?, properties: [Foundation.NSString : Foundation.NSString]?, storable: Swift.Bool, location: CoreLocation.CLLocation?, completion: ((Foundation.NSError?) -> Swift.Void)?)
+  @objc final public func sendEvent(urlSessionTaskResponse: Foundation.URLResponse?, transportError: Foundation.NSError?, completion: ((Foundation.NSError?) -> Swift.Void)?)
+  @objc final public func sendEvent(sessionTaskMetrics: Foundation.URLSessionTaskMetrics, completion: ((Foundation.NSError?) -> Swift.Void)?)
+}
+extension EventPropertyManaged {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<EventPropertyManaged>
+  @objc @NSManaged dynamic public var key: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var value: Swift.String? {
+    @objc get
+    @objc set(value)
+  }
+  @objc @NSManaged dynamic public var data: DataManaged? {
+    @objc get
+    @objc set(value)
+  }
+}
+@objc(MPADeviceConfiguration) final public class ObjcDeviceConfiguration : ObjectiveC.NSObject {
+  @objc public init(profile: ObjcProfile)
+  @objc deinit
+  @objc override dynamic public init()
+}
+public struct Profile : Swift.Hashable, Swift.Encodable {
+  public init()
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: Profile, b: Profile) -> Swift.Bool
+}
+extension Profile {
+  public static var defaultProfile: Profile
+}

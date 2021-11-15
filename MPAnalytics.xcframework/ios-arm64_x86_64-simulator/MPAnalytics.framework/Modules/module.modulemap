@@ -1,0 +1,4 @@
+framework module MPAnalytics {
+  header "MPAnalytics-Swift.h"
+  requires objc
+}

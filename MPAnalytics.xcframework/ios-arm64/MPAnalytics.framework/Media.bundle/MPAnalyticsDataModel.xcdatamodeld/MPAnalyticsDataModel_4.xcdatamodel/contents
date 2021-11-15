@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H114" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DataManaged" representedClassName="DataManaged" syncable="YES">
+        <attribute name="batteryLevel" optional="YES" attributeType="String"/>
+        <attribute name="cellularProvider" optional="YES" attributeType="String"/>
+        <attribute name="connectionType" optional="YES" attributeType="String"/>
+        <attribute name="eventAction" attributeType="String"/>
+        <attribute name="eventCategory" optional="YES" attributeType="String"/>
+        <attribute name="eventType" optional="YES" attributeType="String"/>
+        <attribute name="geoLatitude" optional="YES" attributeType="String"/>
+        <attribute name="geoLongitude" optional="YES" attributeType="String"/>
+        <attribute name="internalIP" optional="YES" attributeType="String"/>
+        <attribute name="isBeingSent" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="timeStamp" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="meta" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventsMeta" inverseName="events" inverseEntity="EventsMeta"/>
+        <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventsProfile" inverseName="events" inverseEntity="EventsProfile"/>
+        <relationship name="properties" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="EventPropertyManaged" inverseName="data" inverseEntity="EventPropertyManaged"/>
+    </entity>
+    <entity name="EventPropertyManaged" representedClassName="EventPropertyManaged" syncable="YES">
+        <attribute name="key" attributeType="String"/>
+        <attribute name="value" attributeType="String"/>
+        <relationship name="data" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DataManaged" inverseName="properties" inverseEntity="DataManaged"/>
+    </entity>
+    <entity name="EventsMeta" representedClassName="EventsMeta" syncable="YES">
+        <attribute name="apiKey" attributeType="String"/>
+        <attribute name="deviceMemorySize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="deviceModel" optional="YES" attributeType="String"/>
+        <attribute name="deviceVendor" attributeType="String" defaultValueString="Apple"/>
+        <attribute name="operationSystem" attributeType="String" defaultValueString="iOS"/>
+        <attribute name="operationSystemVersion" attributeType="String"/>
+        <attribute name="platform" attributeType="String" defaultValueString="MOBILE"/>
+        <attribute name="sberId" optional="YES" attributeType="String"/>
+        <attribute name="screenSize" attributeType="String"/>
+        <attribute name="systemLanguage" attributeType="String" defaultValueString="Ru-ru"/>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DataManaged" inverseName="meta" inverseEntity="DataManaged"/>
+    </entity>
+    <entity name="EventsProfile" representedClassName="EventsProfile" syncable="YES">
+        <attribute name="adId" optional="YES" attributeType="String"/>
+        <attribute name="appId" optional="YES" attributeType="String"/>
+        <attribute name="applicationLanguage" optional="YES" attributeType="String"/>
+        <attribute name="appVersion" optional="YES" attributeType="String"/>
+        <attribute name="clientBlock" optional="YES" attributeType="String"/>
+        <attribute name="cookie" optional="YES" attributeType="String"/>
+        <attribute name="deviceId" optional="YES" attributeType="String"/>
+        <attribute name="hashEfsId" optional="YES" attributeType="String"/>
+        <attribute name="hashEpkId" optional="YES" attributeType="String"/>
+        <attribute name="hashUserLoginId" optional="YES" attributeType="String"/>
+        <attribute name="sapId" optional="YES" attributeType="String"/>
+        <attribute name="sessionId" optional="YES" attributeType="String"/>
+        <attribute name="subId" optional="YES" attributeType="String"/>
+        <attribute name="utm" optional="YES" attributeType="String"/>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DataManaged" inverseName="profile" inverseEntity="DataManaged"/>
+    </entity>
+    <elements>
+        <element name="DataManaged" positionX="-63" positionY="-18" width="128" height="268"/>
+        <element name="EventPropertyManaged" positionX="375.91796875" positionY="146.92578125" width="128" height="88"/>
+        <element name="EventsMeta" positionX="120.15625" positionY="-222.8203125" width="128" height="208"/>
+        <element name="EventsProfile" positionX="304.18359375" positionY="-158.50390625" width="128" height="268"/>
+    </elements>
+</model>

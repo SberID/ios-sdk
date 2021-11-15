@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H15" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DataManaged" representedClassName="DataManaged" syncable="YES">
+        <attribute name="batteryLevel" optional="YES" attributeType="String"/>
+        <attribute name="cellularProvider" optional="YES" attributeType="String"/>
+        <attribute name="connectionType" optional="YES" attributeType="String"/>
+        <attribute name="eventAction" attributeType="String"/>
+        <attribute name="eventCategory" optional="YES" attributeType="String"/>
+        <attribute name="eventType" optional="YES" attributeType="String"/>
+        <attribute name="geoLatitude" optional="YES" attributeType="String"/>
+        <attribute name="geoLongitude" optional="YES" attributeType="String"/>
+        <attribute name="internalIP" optional="YES" attributeType="String"/>
+        <attribute name="timeStamp" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="properties" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="EventPropertyManaged" inverseName="data" inverseEntity="EventPropertyManaged"/>
+    </entity>
+    <entity name="EventPropertyManaged" representedClassName="EventPropertyManaged" syncable="YES">
+        <attribute name="key" attributeType="String"/>
+        <attribute name="value" attributeType="String"/>
+        <relationship name="data" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DataManaged" inverseName="properties" inverseEntity="DataManaged"/>
+    </entity>
+    <elements>
+        <element name="DataManaged" positionX="-63" positionY="-18" width="128" height="223"/>
+        <element name="EventPropertyManaged" positionX="-54" positionY="-9" width="128" height="88"/>
+    </elements>
+</model>
