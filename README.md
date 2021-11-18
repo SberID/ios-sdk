@@ -135,7 +135,7 @@ SBKLoginButton *loginButton = [[SBKLoginButton alloc] initWithType:LoginButtonSt
 
 ### Запуск процесса аутентификации по Сбер ID
 
-Для успешного запроса аутентификации необходимо создать и заполнить объект **request** параметрами, полученными ранее.Описание параметров запроса можно найти в [1.1.2.1. Параметры запроса](https://confluence.sberbank.ru/pages/viewpage.action?pageId=3270150604).
+Для успешного запроса аутентификации необходимо создать и заполнить объект **request** параметрами, полученными ранее.Описание параметров запроса можно найти в [1.1.2.1. Параметры запроса](https://api.developer.sber.ru/product/SberbankID/doc/v1/reqmobile).
 
 
 **Swift**
