@@ -15,12 +15,18 @@ import UIKit
 	private var textType: LoginButtonTextType
 	private var settings: LoginButtonSettingsProtocol
 	private let analyticsService = AnalyticsService()
+	private let loaderView = UIActivityIndicatorView()
 	private let buttonTexts: [LoginButtonTextType: String] = [
 		LoginButtonTextType.short: Lang.localize("  Сбер ID") ,
 		LoginButtonTextType.general: Lang.localize("  Войти по Сбер ID") ,
 		LoginButtonTextType.filling: Lang.localize("  Заполнить со Сбер ID") ,
 		LoginButtonTextType.pursue: Lang.localize("  Продолжить со Сбер ID")
 	]
+
+	/// Скрывает/отображает лоадер
+	@objc public lazy var isLoaderHidden = true {
+		didSet { isLoaderHidden ? hideLoader() : showLoader() }
+	}
 
 	// MARK: Life cycle
 
@@ -65,6 +71,7 @@ import UIKit
 			sendAnalyticsForEvent(.sberIDWrongButtonSize)
 		}
 
+		loaderView.center = CGPoint(x: settings.width / 2, y: settings.height / 2)
 		setupButtonWith(text: buttonText(), settings: settings)
 		_ = attemptToPersonalize()
 		sendAnalyticsForEvent(.sberIDLoginShow)
@@ -146,6 +153,21 @@ import UIKit
 		setTitle(text, for: .normal)
 		contentEdgeInsets = UIEdgeInsets(top: 0, left: settings.logoSize.width, bottom: 0, right: settings.logoSize.width)
 		updateView()
+	}
+
+	private func showLoader() {
+		setImage(nil, for: .highlighted)
+		setImage(nil, for: .normal)
+		setTitle(nil, for: .normal)
+		loaderView.color = settings.backgroundColor == .green ? .white : .gray
+		loaderView.startAnimating()
+		addSubview(loaderView)
+	}
+
+	private func hideLoader() {
+		loaderView.removeFromSuperview()
+		setupButtonWith(text: buttonText(), settings: settings)
+		_ = attemptToPersonalize()
 	}
 
 	private func updateView() {
