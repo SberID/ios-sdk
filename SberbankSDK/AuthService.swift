@@ -71,7 +71,7 @@ final class AuthService {
 	
 	private func openAuthorizationDestination(urlWithOidcParameters: URL,
 											  navigationController: UINavigationController?) {
-		if urlOpenner.canOpenUrl(urlWithOidcParameters) {
+		if isSBOLExists() {
 			urlOpenner.openURL(url: urlWithOidcParameters, options: [:], completion: nil)
 		} else if let navigationController = navigationController {
 			openSafariViewController(for: urlWithOidcParameters, inNavigationController: navigationController)
@@ -87,7 +87,7 @@ final class AuthService {
 	/// Проверяет, установлено ли МП СБОЛ на устройстве
 	/// - Returns: true, если установлено
 	private func isSBOLExists() -> Bool {
-		guard let sbolDeeplink = URL(string: AuthManagerConstants.AuthManagerURL) else { return false }
+		guard let sbolDeeplink = URL(string: AuthManagerConstants.AuthManagerDeeplink) else { return false }
 		return urlOpenner.canOpenUrl(sbolDeeplink)
 	}
 
