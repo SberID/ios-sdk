@@ -26,7 +26,7 @@ final class AnalyticsService: AnalyticsServiceProtocol {
 
 	/// дефолтный EventTracker для отправки сообщения через него
 	lazy var eventTracker: EventTracker = {
-		let urlString = "https://sa.online.sberbank.ru:8098/metrics/partners"
+		let urlString = "https://sve.online.sberbank.ru/metrics/partners"
 		let apiKey = "da8570065d949a8a3ee551b99f31f7774909575e702289b2743fab0aad0ffe41"
 		let partnerName = Bundle.main.displayName
 
