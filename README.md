@@ -18,7 +18,7 @@ iOS SDK помогает реализовать получение Auth Code.
 
 **Предварительно: разместить файлы  SberbankSDK.framework**
  
-- Перетащите SberbankSDK.framework и MPAnalytics.framework в свой проект в Frameworks, Libraries, and Embedded Content
+- Перетащите SberbankSDK.xcframework и MPAnalytics.xcframework в свой проект в Frameworks, Libraries, and Embedded Content
 
 ![Скриншот переноса директорий](ReadMeImages/image2021-7-23_18-40-53.png ':size=600')
 
