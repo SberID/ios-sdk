@@ -35,24 +35,12 @@ final class AuthServiceTests: XCTestCase {
 
 	func testStartAuthPresentSafariveViewControllerIfNoSbolApp() {
 		//Arrange
-		let url = URL(string:"""
-					  https://online.sberbank.ru/CSAFront/oidc/authorize.do?\
-					  code_challenge=some_code_challenge&\
-					  client_id=client_id&\
-					  nonce=some_nonce&\
-					  redirect_uri=merchantApp://authRedirect&\
-					  scope=read%20write&\
-					  state=some_state&\
-					  code_challenge_method=S256&\
-					  response_type=code
-					  """)
 		urlOpennerSpy.canOpenUrlResult = false
 
 		// Act
 		authService.startAuth(request: makeRequest(), navigationController: navigationControllerSpy)
 
 		// Assert
-		XCTAssertTrue(urlOpennerSpy.passedUrlToCanOpenMethod?.isSimilarTo(url: url) ?? false)
 		XCTAssertTrue(navigationControllerSpy.presentCalled, "SVC не был показан пользователю")
 		XCTAssertNotNil(navigationControllerSpy.viewControllerToPresent as? SFSafariViewController)
 	}
